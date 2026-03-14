@@ -368,5 +368,5 @@ def delete_history_item(history_id):
 def health_check():
     return jsonify({'status': 'healthy', 'model_loaded': model is not None})
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run()
