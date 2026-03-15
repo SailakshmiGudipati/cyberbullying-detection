@@ -758,27 +758,59 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Add touch support for mobile
+    // Add touch support for mobile - FIXED VERSION
     let touchStartY = 0;
     let touchEndY = 0;
+    let touchStartTime = 0;
+    let touchEndTime = 0;
+    let isSwipeGesture = false;
     
     document.addEventListener('touchstart', (e) => {
+        // Only track touches on the main content area, not on buttons or inputs
+        if (e.target.closest('button') || e.target.closest('input') || e.target.closest('textarea')) {
+            return; // Ignore touches on interactive elements
+        }
+        
         touchStartY = e.changedTouches[0].screenY;
+        touchStartTime = Date.now();
+        isSwipeGesture = false;
+    });
+    
+    document.addEventListener('touchmove', (e) => {
+        // Detect if this is actually a swipe gesture
+        if (Math.abs(e.changedTouches[0].screenY - touchStartY) > 10) {
+            isSwipeGesture = true;
+        }
     });
     
     document.addEventListener('touchend', (e) => {
+        // Only process if it was a swipe gesture and not on interactive elements
+        if (!isSwipeGesture || e.target.closest('button') || e.target.closest('input') || e.target.closest('textarea')) {
+            return;
+        }
+        
         touchEndY = e.changedTouches[0].screenY;
+        touchEndTime = Date.now();
+        
+        // Check if it was a quick swipe (not a long press)
+        const touchDuration = touchEndTime - touchStartTime;
+        if (touchDuration > 500) {
+            return; // Ignore long presses
+        }
+        
         handleSwipe();
     });
     
     function handleSwipe() {
-        const swipeThreshold = 50;
+        const swipeThreshold = 80; // Increased threshold to prevent accidental triggers
         const diff = touchStartY - touchEndY;
         
         if (Math.abs(diff) > swipeThreshold) {
             if (diff > 0) {
-                // Swipe up - analyze message
-                analyzeMessage();
+                // Swipe up - analyze message (only if there's text)
+                if (messageInput && messageInput.value.trim().length > 0) {
+                    analyzeMessage();
+                }
             } else {
                 // Swipe down - clear input
                 clearInput();
@@ -808,7 +840,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize page
     console.log('🚀 Toxic Comment Detection System initialized');
-    showToast('Welcome! Enter a message to analyze for toxic content.', 'info');
+    // Remove welcome toast to prevent popup on mobile
+    // showToast('Welcome! Enter a message to analyze for toxic content.', 'info');
 });
 // Add these OUTSIDE the DOMContentLoaded block, at the top or bottom of script.js
 
