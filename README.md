@@ -16,11 +16,13 @@ A comprehensive Machine Learning project for detecting toxic, abusive, and harmf
 ## 📊 Model Performance
 
 The final comprehensive model achieved outstanding performance metrics:
-- **Accuracy**: 99.16%
+- **Accuracy**: 99.43%
 - **Precision**: 99% (both classes)
 - **Recall**: 99% (both classes)
 - **F1-Score**: 99% (both classes)
-- **Dataset Size**: 4,182 balanced samples
+- **Dataset Size**: 14,124 balanced samples (combined from 8 datasets)
+- **Training Source**: Single combined dataset approach
+- **Model Type**: Logistic Regression with TF-IDF vectorization
 
 ## 🎯 Detection Categories
 
@@ -252,6 +254,17 @@ The final dataset contains 4,182 balanced labeled text messages:
 7. **Model Serialization**: Save with joblib
 
 ## 🚀 Deployment
+
+### 🌐 Live Application
+
+**Deployed Application**: https://cyberbullying-detection-6sgn.onrender.com/
+
+The application is currently deployed and accessible at the above URL. Features include:
+- Real-time toxic comment detection
+- Confidence scoring system
+- Modern responsive web interface
+- REST API endpoint for integration
+- Comprehensive detection across multiple abuse categories
 
 ### Production Deployment
 
