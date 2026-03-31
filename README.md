@@ -257,7 +257,7 @@ The final dataset contains 4,182 balanced labeled text messages:
 
 ### 🌐 Live Application
 
-**Deployed Application**: https://cyberbullying-detection-6sgn.onrender.com/
+**Deployed Application**: https://cyberbullying-detection-kwxn.onrender.com
 
 The application is currently deployed and accessible at the above URL. Features include:
 - Real-time toxic comment detection
